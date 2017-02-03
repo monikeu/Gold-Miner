@@ -5,6 +5,7 @@ import java.awt.*;
 /**
  * Created by Monikeu on 07.01.2017.
  */
+
 public class Rock {
 
     private KindOfRock kindOfRock;
@@ -14,12 +15,11 @@ public class Rock {
     private int value;
     private Image image;
     private boolean visibility = true;
-    private int[][] valueTable = {  {50,100,150,200,250},
+    private static int[][] valueTable = {  {50,100,150,200,250},
                                     {100,200,300,400,500},
-                                    {150,300,450,600,750}  };  ///// sprawdź jak to wyświetla
+                                    {150,300,450,600,750}  };  // values fo different kind ans size of rocks
 
     private int[] widthNHeigthTable = { 25,35,45,55,65 };
-
 
 
     public void setWidthNHeighth(int weight){
@@ -28,23 +28,20 @@ public class Rock {
 
     public void setStone(int weight, int x, int y){
         kindOfRock = KindOfRock.STONE;
-        image = (new ImageIcon("src/stone.png")).getImage();
-           System.out.print("Tworzę " + kindOfRock + " \n") ;
+        image = (new ImageIcon("sprites/stone.png")).getImage();
         setRest(weight,  x,  y, 0);
     }
 
     public void setGold(int weight, int x, int y){
         kindOfRock = KindOfRock.GOLD;
-        image = (new ImageIcon("src/gold.png")).getImage();
-           System.out.print("Tworzę " + kindOfRock + " \n") ;
+        image = (new ImageIcon("sprites/gold.png")).getImage();
         setRest(weight,   x,  y, 1);
 
     }
 
     public void setDiamond(int weight, int x, int y){
         kindOfRock = KindOfRock.DIAMOND;
-        image = (new ImageIcon("src/diamond.png")).getImage();
-            System.out.print("Tworzę " + kindOfRock + " \n") ;
+        image = (new ImageIcon("sprites/diamond.png")).getImage();
         setRest(weight,   x,  y, 2);
     }
 
@@ -53,7 +50,6 @@ public class Rock {
         xcoord=x;
         ycoord=y;
         value = valueTable[typeNumber][weight];
-            System.out.print("Ustawiono resztę \n") ;
         image = image.getScaledInstance(widthNHeighth,widthNHeighth,Image.SCALE_DEFAULT);
     }
 
@@ -99,10 +95,6 @@ public class Rock {
 
     public void setVisibility(boolean a){
         visibility = a;
-    }
-
-    public KindOfRock getKindOfRock(){
-        return kindOfRock;
     }
 
 }

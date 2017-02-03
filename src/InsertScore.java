@@ -10,7 +10,7 @@ public class InsertScore extends JButton implements ActionListener {
 
     private ButtonPanel buttonPanel;
     private int score;
-    private  JButton okButton;
+    private JButton okButton;
     private JTextField textField;
     private String name = null;
     private boolean inserted = false;
@@ -19,18 +19,27 @@ public class InsertScore extends JButton implements ActionListener {
     public  InsertScore(ButtonPanel buttonPanel, int score){
         this.buttonPanel = buttonPanel;
         this.score = score;
-        setPreferredSize(new Dimension(600,500));
-        setLayout(new GridLayout(1,2));
+        setVars();
+        setParams();
         addComponents();
     }
 
-    private void addComponents(){
+    private void setVars(){
         okButton = new JButton( "Ok");
         okButton.addActionListener(this);
-        add(okButton);
+
         textField = new JTextField();
         textField.addActionListener(this);
+    }
+
+    private void addComponents(){
+        add(okButton);
         add(textField);
+    }
+
+    private  void  setParams(){
+        setPreferredSize(new Dimension(600,500));
+        setLayout(new GridLayout(2,1));
     }
 
     @Override
@@ -44,23 +53,8 @@ public class InsertScore extends JButton implements ActionListener {
 
         if(name!=null && !inserted){
             inserted = true;
-            for(int i=0;i<10;i++){
-                System.out.print("element " + i + ": " + buttonPanel.rankManager.rankTable.get(i).getName() + "\n");
-            }
-
             buttonPanel.rankManager.rankTable.add(9,new RankTableElement(score,name));
-            System.out.print("wpisałem " + score + " " + name + "\n");
-
-            for(int i=0;i<10;i++){
-                System.out.print("element " + i + ": " + buttonPanel.rankManager.rankTable.get(i).getName() + "\n");
-            }
-
             buttonPanel.rankManager.sort();
-
-            for(int i=0;i<10;i++){
-                System.out.print("element " + i + ": " + buttonPanel.rankManager.rankTable.get(i).getName() + "\n");
-            }
-
             buttonPanel.rankManager.updateRank();
             buttonPanel.rankManager.saveRankToFile();
 

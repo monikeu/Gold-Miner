@@ -14,6 +14,6 @@ public class KAdapter extends KeyAdapter {
 
     @Override
     public void keyPressed(KeyEvent e) {
-        buttonPanel.manager.keyTyped(e);
+        buttonPanel.gameManager.keyTyped(e);
     }
 }

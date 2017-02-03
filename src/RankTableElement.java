@@ -10,9 +10,9 @@ public class RankTableElement implements Comparable<RankTableElement>,Serializab
 
     public  RankTableElement(){}
 
-    public RankTableElement(int a, String b){
-        points = a;
-        name = b;
+    public RankTableElement(int points, String name){
+        this.points = points;
+        this.name = name;
     }
 
     @Override
@@ -20,20 +20,20 @@ public class RankTableElement implements Comparable<RankTableElement>,Serializab
         return points -r.points;
     }
 
-    public void setPoints(int points) {
-        this.points = points;
-    }
-
     public int getPoints() {
         return points;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public String getName() {
         return name;
+    }
+
+    public void setPoints(int points) {
+        this.points = points;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
 

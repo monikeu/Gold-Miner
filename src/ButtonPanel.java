@@ -13,16 +13,20 @@ public class ButtonPanel extends JButton implements ActionListener
     private JButton startButton;
     private JButton exitButton;
     private JButton rankButton ;
-    public Manager manager;
+    public GameManager gameManager;
     public MainPanel mainPanel;
     public RankManager rankManager;
 
 
     public ButtonPanel( MainPanel mainPanel) {
 
-        //this.manager = manager;
         this.mainPanel=mainPanel;
+        initVar();
+        addComponents();
+        setParams();
+    }
 
+    private void initVar(){
         rankManager =new RankManager(this);
 
         startButton = new JButton("Start");
@@ -36,16 +40,17 @@ public class ButtonPanel extends JButton implements ActionListener
         startButton.setPreferredSize(new Dimension(100,50));
         exitButton.setPreferredSize(new Dimension(100,50));
         rankButton.setPreferredSize(new Dimension(100,50));
+    }
 
-        setPreferredSize(new Dimension(600,500));
-
+    private void addComponents(){
         add(startButton);
         add(rankButton);
         add(exitButton);
+    }
 
+    private void  setParams(){
+        setPreferredSize(new Dimension(600,500));
         setLayout(new GridLayout(3,1, 50,50));
-
-
     }
 
     @Override
@@ -55,9 +60,8 @@ public class ButtonPanel extends JButton implements ActionListener
         if(source == exitButton)
             System.exit(0);
         else if(source == startButton){
-            manager = new Manager(this);
-            mainPanel.add(manager);
-            manager.start();
+            gameManager = new GameManager(this);
+            mainPanel.add(gameManager);
             this.setVisible(false);
         }
         else if(source == rankButton){

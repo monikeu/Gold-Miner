@@ -2,21 +2,23 @@ import javax.swing.*;
 /**
  * Created by Monikeu on 07.01.2017.
  */
+//main frame
 public class MainPanel extends JFrame {
 
     private ButtonPanel buttonPanel;
     private KAdapter keyadapter;
 
     public MainPanel() {
-        initVariables();
+        initVar();
         addComponents();
         setParams();
     }
 
-    private void initVariables(){
+    private void initVar(){
         buttonPanel = new ButtonPanel(this);
         keyadapter = new KAdapter(buttonPanel);
     }
+
     private  void  addComponents(){
         add(buttonPanel);
         addKeyListener(keyadapter);
@@ -30,6 +32,4 @@ public class MainPanel extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setFocusable(true);
     }
-
-
 }

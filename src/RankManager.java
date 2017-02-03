@@ -17,22 +17,49 @@ public class RankManager extends JButton implements ActionListener {
     private ButtonPanel buttonPanel;
     private int minScore;
     private JLabel rank[];
+    private JLabel rankHeader;
 
     public RankManager(ButtonPanel buttonPanel){
         this.buttonPanel = buttonPanel;
         rankTable = new ArrayList<RankTableElement>();
 
+        readTableFromFile();
+        initVars();
+        addComponents();
+        setParams();
+
+    }
+
+    private void initVars(){
+        rankHeader  = new JLabel("Rank");
+        rank = new JLabel[10];
+        backButton = new JButton("Back");
+        backButton.addActionListener(this);
+        minScore = rankTable.get(9).getPoints();
+    }
+
+    private void addComponents(){
+
+        add(rankHeader);
+
+        for(int i=0; i<10;i++) {
+            rank[i] = new JLabel(printRank(i));
+            add(rank[i]);
+        }
+
+        add(backButton);
+    }
+
+    private void setParams(){
         setPreferredSize(new Dimension(600,500));
         setLayout(new GridLayout(12,1,10,10));
-
-        addComponents();
     }
 
     private void readTableFromFile(){
 
         Object rankTableElement = new Object();
         try {
-            FileInputStream fr = new FileInputStream("rank.txt");
+            FileInputStream fr = new FileInputStream("files/rank.txt");
             ObjectInputStream br = new ObjectInputStream(fr);
 
             for(int i=0;i<10;i++)
@@ -45,37 +72,6 @@ public class RankManager extends JButton implements ActionListener {
         catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
-    minScore = rankTable.get(9).getPoints();
-
-
-        //for(int i=0; )
-    }
-
-    private void  generateTable(){
-        Random genarator = new Random();
-
-        for(int i=0;i<10;i++){
-            rankTable.add(new RankTableElement(genarator.nextInt(10)+1, "ala"));
-        }
-        Collections.sort(rankTable);
-        Collections.reverse(rankTable);
-    }
-
-    public void saveRankToFile(){
-        FileOutputStream fileOutputStream = null;
-
-        try {
-            fileOutputStream = new FileOutputStream("rank.txt");
-            ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
-            for(int i=0;i<10;i++) {
-                objectOutputStream.writeObject(rankTable.get(i));
-            }
-            fileOutputStream.close();
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
     }
 
     private String printRank(int i){
@@ -91,24 +87,33 @@ public class RankManager extends JButton implements ActionListener {
         }
     }
 
-    private void addComponents(){
+    public void sort(){
+        Collections.sort(rankTable);
+        Collections.reverse(rankTable);
+        deleteFromListIfLongerThan10();
+    }
 
-       // generateTable();
-       // saveRankToFile();
-        //rankTable.clear();
-        readTableFromFile();
+    public void saveRankToFile(){
+        FileOutputStream fileOutputStream = null;
 
-        JLabel rankHeader  = new JLabel("Rank");
-        add(rankHeader);
+        try {
+            fileOutputStream = new FileOutputStream("files/rank.txt");
+            ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
+            for(int i=0;i<10;i++) {
+                objectOutputStream.writeObject(rankTable.get(i));
+            }
+            fileOutputStream.close();
 
-        rank = new JLabel[10];
-        for(int i=0; i<10;i++) {
-            rank[i] = new JLabel(printRank(i));
-            add(rank[i]);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-        backButton = new JButton("Back");
-        backButton.addActionListener(this);
-        add(backButton);
+
+    }
+
+    public void updateRank(){
+        for(int i=0; i<10;i++) {
+            rank[i].setText(printRank(i));
+        }
     }
 
     private void deleteFromListIfLongerThan10(){
@@ -120,18 +125,6 @@ public class RankManager extends JButton implements ActionListener {
 
     public int getMinScore() {
         return minScore;
-    }
-
-    public void sort(){
-        Collections.sort(rankTable);
-        Collections.reverse(rankTable);
-        deleteFromListIfLongerThan10();
-    }
-
-    public void updateRank(){
-        for(int i=0; i<10;i++) {
-            rank[i].setText(printRank(i));
-        }
     }
 
 }

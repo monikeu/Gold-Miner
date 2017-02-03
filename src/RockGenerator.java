@@ -26,8 +26,6 @@ public class RockGenerator {
         a.setStone(weigth,x,y);
         rocks.add(a);
         valueOfRocks+=a.getValue();
-        System.out.print("wartosc całkowita " + valueOfRocks + "\n") ;
-
 
         while(valueOfRocks < minTotalValue + 1000) {
 
@@ -36,9 +34,7 @@ public class RockGenerator {
             weigth =randomGenerator.nextInt(5);
             a.setWidthNHeighth(weigth);
             while (( (x = (randomGenerator.nextInt(601 - a.getWidthNHeighth())  ))  > 600) && x>0);
-                  System.out.print("x: " + x + " \n");
             while (( (y = (randomGenerator.nextInt(401 -  a.getWidthNHeighth()) + 100  ))  > 500) && y>65);
-                  System.out.print("y: " + y + " \n");
 
             //creating random rocks where probability of getting diamond < gold < stone
             switch ( randomGenerator.nextInt(6)) {
@@ -73,12 +69,7 @@ public class RockGenerator {
             if(count == rocks.size()) {
                 rocks.add(a);
                 valueOfRocks += a.getValue();
-                System.out.print("skala nie koliduje z zadną inna \n") ;
-                System.out.print("Dodalem \n");
             }
-            System.out.print("wartosc count +1 " + (count + 1) +"\n dlugosc tablicy " + rocks.size() +"\n");
-            System.out.print("wartosc całkowita " + valueOfRocks + "\n") ;
-
         }
         return rocks;
     }
